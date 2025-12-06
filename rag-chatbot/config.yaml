@@ -1,0 +1,65 @@
+# Data Source Toggles
+data_sources:
+  email:
+    enabled: false
+    collection_name: "emails"
+  
+  jira:
+    enabled: false
+    collection_name: "jira_tickets"
+  
+  pdf:
+    enabled: false
+    collection_name: "pdfs"
+  
+  document:
+    enabled: false
+    collection_name: "documents"
+
+# Email Configuration (only if email.enabled = true)
+email:
+  imap_server: "imap.gmail.com"
+  imap_port: 993
+  # Set in .env: EMAIL_USER, EMAIL_PASSWORD
+  max_emails: 100  # Limit for initial load
+
+# Jira Configuration (only if jira.enabled = true)
+jira:
+  server: "https://your-domain.atlassian.net"
+  # Set in .env: JIRA_EMAIL, JIRA_API_TOKEN
+  max_issues: 100  # Limit for initial load
+  jql: "ORDER BY updated DESC"  # JQL query
+
+# PDF Configuration (only if pdf.enabled = true)
+pdf:
+  directory: "./data/pdfs"
+  recursive: true
+
+# Document Configuration (only if document.enabled = true)
+document:
+  directory: "./data/documents"
+  recursive: true
+  supported_extensions: [".docx", ".txt"]
+
+# Processing
+processing:
+  chunk_size: 512
+  chunk_overlap: 50
+  embedding_model: "all-MiniLM-L6-v2"  # Small, fast, free
+
+# Vector DB
+vector_db:
+  persist_directory: "./chroma_db"
+  collection_name: "rag_collection"
+
+# LLM
+llm:
+  model: "llama3.2"  # or mistral, llama2, etc.
+  base_url: "http://localhost:11434"  # Ollama default
+  temperature: 0.7
+  max_tokens: 512
+
+# RAG
+rag:
+  top_k: 5  # Number of chunks to retrieve
+
